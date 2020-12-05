@@ -4,6 +4,7 @@ import { ListItem, Tile } from "react-native-elements";
 import { connect } from "react-redux";
 import { baseUrl } from "../shared/baseUrl";
 import Loading from "./LoadingComponent";
+import * as Animatable from "react-native-animatable";
 
 const mapStateToProps = (state) => {
 	return {
@@ -20,16 +21,18 @@ class Directory extends Component {
 		const { navigate } = this.props.navigation;
 		const renderDirectoryItem = ({ item }) => {
 			return (
-				<Tile
-					title={item.name}
-					// subtitle={item.description} subtitle only work for ListItem. usage of caption and feature for Title
-					caption={item.description}
-					featured
-					onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
-					imageSrc={{ uri: baseUrl + item.image }}
-					// onPress={() => props.onPress(item.id)} //ListItem has its own onPress property and we also use onPress props aka onCampsiteSelect method from main
-					// leftAvatar={{ source: require("./images/react-lake.jpg") }} work for ListItem only
-				/>
+				<Animatable.View animation="fadeInRightBig" duration={2000}>
+					<Tile
+						title={item.name}
+						// subtitle={item.description} subtitle only work for ListItem. usage of caption and feature for Title
+						caption={item.description}
+						featured
+						onPress={() => navigate("CampsiteInfo", { campsiteId: item.id })}
+						imageSrc={{ uri: baseUrl + item.image }}
+						// onPress={() => props.onPress(item.id)} //ListItem has its own onPress property and we also use onPress props aka onCampsiteSelect method from main
+						// leftAvatar={{ source: require("./images/react-lake.jpg") }} work for ListItem only
+					/>
+				</Animatable.View>
 			);
 		};
 
